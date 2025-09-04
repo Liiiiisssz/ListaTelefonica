@@ -113,7 +113,27 @@ public class Main {
 
     public static void removerContato(){
         System.out.println("-- REMOVER CONTATO --");
+        var dao = new ContatoDAO();
+        List<Integer> idContatos = new ArrayList<>();
+        List<Contato> contatos = new ArrayList<>();
+        try{
+            contatos = dao.listarContatos();
+            idContatos = exibirContatos(contatos);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        System.out.println("\nID do contato para remoção:");
+        int id = sc.nextInt();
+        sc.nextLine();
 
+        if(idContatos.contains(id)){
+            try{
+                dao.removerContato(id);
+                System.out.println("\nContato removido com sucesso.");
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public static List<Integer> exibirContatos(List<Contato> contatos){

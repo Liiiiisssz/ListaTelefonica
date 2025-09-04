@@ -101,4 +101,17 @@ public class ContatoDAO {
             System.out.println("Email atualizado com sucesso!");
         }
     }
+
+    public void removerContato(int id) throws SQLException{
+        String query = """
+                DELETE FROM contato
+                WHERE id = ?
+                """;
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
 }
